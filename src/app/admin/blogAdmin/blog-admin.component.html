@@ -2,7 +2,9 @@
         <div class="top-bar-title">Admin Area</div>
         <div>
             <ul class="menu">
-                <li class="admin-menu"><a [routerLink]="['/admin/blog-admin']">Manage Blog</a></li>
+                <li class="admin-menu"><a (click)="chooseMode('add')">Add Post</a></li>
+                <li *ngIf="menuChoice" class="admin-menu"><a (click)="chooseMode('')">Manage Blogs</a></li>
+                <li class="admin-menu"><a [routerLink]="['/admin']">Back to Admin</a></li>
             </ul>
         </div>
         <div *ngIf="theUser" class="top-bar-right">
@@ -13,11 +15,7 @@
         </div>
 </div>
 
-<div>
-    <img src="../adminShared/images/code.jpg" >
-</div>
-
-<div class="row align-center">
-    <h2>Welcome to Admin Area for blog system and shopping cart</h2>
-    <h3>This area is for authorised users only.</h3>
+<div class="row align-center" [ngSwitch]="menuChoice" >
+    <div *ngSwitchCase="'add'" ><blog-add > </blog-add></div>
+    <div *ngSwitchDefault><h1>Default</h1></div>
 </div>
