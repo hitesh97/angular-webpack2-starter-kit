@@ -1,0 +1,15 @@
+<div class="top-bar">
+        <div class="top-bar-title">Admin Area</div>
+        <div>
+            <ul class="menu">
+                <li class="admin-menu"><a href="#">One</a></li>
+                <li class="admin-menu"><a href="#">Two</a></li>
+            </ul>
+        </div>
+        <div *ngIf="theUser" class="top-bar-right">
+            <ul class="menu">
+                <li class="admin-menu" (click)="logout()"><a href="#">logout</a></li>
+                <li class="admin-menu"><a>User: {{theUser}}</a></li>
+            </ul>            
+        </div>
+</div>
