@@ -16,6 +16,8 @@ export class BlogAdminComponent implements OnInit {
      theUser:string;
      menuChoice: string;
      blogPosts: Blog[];
+     formDisplay: boolean = true;
+     singlePost: Blog;
 
     constructor(private userSvc: UserService, private router: Router, private blogAdminSVC: BlogAdminService){
 
@@ -44,4 +46,29 @@ export class BlogAdminComponent implements OnInit {
     chooseMode(mode: string) {
         this.menuChoice = mode;
     }
+
+    editPost(thePost: Blog) {
+        this.singlePost = thePost;
+        this.formDisplay = false;
+    }
+
+    cancelEdit() {
+        this.formDisplay = true;
+    }
+
+    updatePost(single: Blog) {
+        this.blogAdminSVC.editPost(single);
+        this.formDisplay=true;
+    }
+
+    deletePost(single: Blog) {
+        let verify = confirm(`are you sure you want to delete post ${single.title}`);
+        if(verify == true) {
+            this.blogAdminSVC.removePost(single);
+            this.router.navigate(['/admin/']);
+        } else {
+            alert('nothing deleted !');
+        }
+    }
+
 }

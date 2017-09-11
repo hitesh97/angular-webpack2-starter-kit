@@ -25,4 +25,25 @@ export class BlogAdminService {
         });
     }
 
+    editPost(update: Blog) {
+        let dbRef = firebase.database().ref('blogPosts/').child(update.id)
+        .update({
+            title: update.title,
+            content: update.content
+        });
+        alert('post Updated !!');
+    }
+
+    removePost(deletePost: Blog) {
+        let dbRef = firebase.database().ref('blogPosts/').child(deletePost.id).remove();
+        alert('post Deleted !!');
+        let imageRef = firebase.storage().ref().child(`images/${deletePost.imgTitle}`).delete()
+        .then(() => {
+            alert(`${deletePost.imgTitle} was deleted from storage`);
+        }
+
+        ).catch((error) => {
+            alert(`unable to delete ${deletePost.imgTitle}`);
+        }) ;
+    }
 }

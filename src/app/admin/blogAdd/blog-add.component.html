@@ -1,1 +1,38 @@
-<h1>this is blog add component</h1>
+<div class="row">
+    <div class="small-12 medium-6 columns">
+            <h1>Add a post</h1>
+    </div>
+</div>
+
+<form>
+    <div class="row">
+        <div class="small-12 medium-6 columns">
+                <label>Post Title
+                    <input type="text" [(ngModel)]="postTitle" name="postTitle" required #psTitle="ngModel" >
+                </label>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="small-12 medium-6 columns">
+            <label>Post Content</label>
+            <textarea type="text" [(ngModel)]="content" name="content" required #pscontent="ngModel" ></textarea>
+        </div>
+        
+        <div class="small-12 medium-6 columns">
+            <input type="file" (change)="fileLoad($event)" > <br>
+            <img *ngIf="imageSRC" [src]="imageSRC" alt="preview Image..." />
+        </div>
+    </div>
+
+    <br />
+    <div class="row align-center">
+        <div class="small-12 columns">
+            <div class="expanded button-group">
+                <button class="success button" type="button" [disabled]="!psTitle.value" (click)="createPost()">Create Post </button>
+                <button class="cancel button" type="button"  (click)="createPost()">Create Post </button>
+            </div>
+        </div>
+    </div>
+
+</form>

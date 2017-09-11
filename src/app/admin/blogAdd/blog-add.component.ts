@@ -14,5 +14,34 @@ export class BlogAddComponent {
     content: string;
     post: Blog;
 
-    constructor(){}
+    constructor(private blogAdminService: BlogAdminService, private routere: Router) {
+
+    }
+
+    fileLoad($event: any) {
+        let myReader: FileReader = new FileReader();
+        let file:File = $event.target.files[0];
+        this.imgTitle = file.name;
+        myReader.readAsDataURL(file);
+
+        myReader.onload =(e:any) =>{
+            this.imageSRC = e.target.result;
+        }
+    }
+
+    createPost() {
+        this.post = new Blog(
+            this.postTitle, 
+            this.content, 
+            this.imgTitle, 
+            this.imageSRC.substring(23)
+        );
+        this.blogAdminService.createPost(this.post);
+        alert(`${this.postTitle} added to the posts`);
+        this.routere.navigate(['/admin']);
+    }
+
+    cancel() {
+        this.routere.navigate(['/admin']);
+    }
 }
